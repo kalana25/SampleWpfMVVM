@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>E.Deezer</id>
+    <version>2.1.0</version>
+    <title>E.Deezer</title>
+    <authors>BigE</authors>
+    <owners>BigE</owners>
+    <licenseUrl>http://github.com/projectgoav/e.deezer</licenseUrl>
+    <projectUrl>http://github.com/projectgoav/e.deezer</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>.NET Deezer API wrapper.</description>
+    <releaseNotes>Please report any issues here: http://github.com/projectgoav/e.deezer/issues
+
+Documentation can be found here: http://github.com/projectgoav/e.deezer/wiki
+
+[Latest]
+V2.1.0
+---------
++ OAuth Access token can be provided for access to user methods
++ Implemented User GET methods
++ Added Preview property to Tracks.
+
+* Exceptions are now reported correctly to user
+* Fixed exception messages
+* Internal fixes for stability
+
+
+
+
+[Earlier]
+V2.0.1.172
+---------
+* Fixed NullReference Issues when searching
++ Default response size can now be specified when creating session
+
+V2.0.0.158
+---------
+* Newly structured API
++ Deezer API Exceptions now thrown if they occur
+
+NOTE: Is not compatible with 1.X.X.X versions!</releaseNotes>
+    <copyright>Copyright ©  2015</copyright>
+    <tags>.NET4 Rest Deezer</tags>
+    <dependencies>
+      <dependency id="RestSharp" version="105.2.3" />
+    </dependencies>
+  </metadata>
+</package>

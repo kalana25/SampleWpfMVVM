@@ -1,0 +1,43 @@
+﻿<UserControl x:Class="PresentationLayer.Usercontrol.SystemConfiguration"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PresentationLayer.Usercontrol"
+             mc:Ignorable="d" 
+             xmlns:viwMod="clr-namespace:PresentationLayer.ViewModel"
+             xmlns:Mod="clr-namespace:DataModel;assembly=DataModel"
+             Background="White"
+             Height="294.511" Width="504">
+    <UserControl.Resources>
+        <viwMod:SystemConfigurationViewModel x:Key="ConfigVm"/>
+        <Mod:ConfigurationDetail x:Key="ConfDelMod"/>
+    </UserControl.Resources>
+    <StackPanel DataContext="{Binding Source={StaticResource ConfDelMod}}">
+        <Label  Padding="0,10" HorizontalContentAlignment="Center" FontSize="25" FontWeight="DemiBold" Background="CadetBlue" Foreground="White" Margin="0">Configuration</Label>
+        <Grid Margin="30,25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="1">Code</Label>
+            <Label Grid.Row="2">Name</Label>
+            <Label Grid.Row="3">Description</Label>
+            <Label Grid.Row="0">Configuration Type</Label>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding ConfigDetailCode, UpdateSourceTrigger=PropertyChanged}" />
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding ConfigDetailName, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding ConfigDetailDescrp,UpdateSourceTrigger=PropertyChanged}"/>
+            <ComboBox Grid.Row="0" Grid.Column="1" ItemsSource="{Binding SystemConfigurations, Source={StaticResource ConfigVm}}" DisplayMemberPath="Name" SelectedValuePath="Code" SelectedValue="{Binding Code}"/>
+        </Grid>
+        <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Margin="30,0,10,0" Command="{Binding SysConfgSaveCommnd, Source={StaticResource ConfigVm}}" CommandParameter="{Binding Mode=OneWay}">Save</Button>
+            <Button Command="{Binding SystemConfigClearCommnd, Source={StaticResource ConfigVm}}" CommandParameter="{Binding Mode=OneWay}">Clear</Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="PresentationLayer.Usercontrol.Patient"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PresentationLayer.Usercontrol"
+             mc:Ignorable="d" 
+             Background="White"
+             xmlns:vm="clr-namespace:PresentationLayer.ViewModel"
+             xmlns:mod="clr-namespace:DataModel;assembly=DataModel"
+             Height="504" Width="549">
+    <UserControl.Resources>
+        <mod:Patient x:Key="patnt"/>
+        <vm:PatientViewModel x:Key="PatientVm"/>
+    </UserControl.Resources>
+    <StackPanel DataContext="{Binding Source={StaticResource patnt}}" Background="White">
+        <Label  Padding="0,10" HorizontalContentAlignment="Center" FontSize="25" FontWeight="DemiBold" Background="CadetBlue" Foreground="White" Margin="0">Patient</Label>
+        <Grid Margin="30,25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="30,10,0,3">
+                <Label Background="Transparent" Foreground="Black" Margin="0">Basic Info</Label>
+                <Separator></Separator>
+            </StackPanel>
+            <Label Grid.Row="1">First Name</Label>
+            <Label Grid.Row="2">Last Name</Label>
+            <Label Grid.Row="3">Other Name</Label>
+            <Grid Grid.Row="4" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0">Age</Label>
+                <TextBox Grid.Column="1" Text="{Binding Age ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Grid.Column="2">Gender</Label>
+                <ComboBox Grid.Column="3" ItemsSource="{Binding GenderConfigDetails, Source={StaticResource PatientVm},Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="ConfigDetailCode" DisplayMemberPath="ConfigDetailName" SelectedValue="{Binding Gender}"></ComboBox>
+            </Grid>
+            <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Margin="30,10,0,3">
+                <Label  Background="Transparent" Foreground="Black" Margin="0">Contact Info</Label>
+                <Separator></Separator>
+            </StackPanel>
+            <Grid Grid.Row="6" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0">Contact No</Label>
+                <TextBox Grid.Column="1" Text="{Binding ContactNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Margin="30,10,0,3">
+                <Label Grid.Row="7" Background="Transparent" Foreground="Black" Margin="0">Residence Address</Label>
+                <Separator></Separator>
+            </StackPanel>
+            <Label Grid.Row="8">Address</Label>
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding FirstName ,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding LastName ,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="1" Grid.Row="3" Text="{Binding OtherName ,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="1" Grid.Row="8" Text="{Binding Address,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+        <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Margin="30,0,10,0" Command="{Binding PatientSaveCommand, Source={StaticResource PatientVm}}" CommandParameter="{Binding Mode=OneWay}">Save</Button>
+            <Button Command="{Binding PatientClearCommand, Source={StaticResource PatientVm}}" CommandParameter="{Binding Mode=OneWay}">Clear</Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

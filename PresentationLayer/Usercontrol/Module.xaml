@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="PresentationLayer.Usercontrol.Module"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PresentationLayer.Usercontrol"
+             mc:Ignorable="d" 
+             Background="White"
+             xmlns:mod="clr-namespace:DataModel;assembly=DataModel"
+             xmlns:vm="clr-namespace:PresentationLayer.ViewModel"
+             Height="260" Width="491.729">
+    <UserControl.Resources>
+        <mod:Module x:Key="modul"/>
+        <vm:ModuleViewModule x:Key="ModulVM"/>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Background" Value="DarkSeaGreen"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Margin" Value="30,2,10,2"></Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Margin" Value="0,2"/>
+        </Style>
+    </UserControl.Resources>
+    <StackPanel DataContext="{Binding Source={StaticResource modul}}">
+        <Label  Padding="0,10" HorizontalContentAlignment="Center" FontSize="25" FontWeight="DemiBold" Background="CadetBlue" Foreground="White" Margin="0">Module</Label>
+        <Grid Margin="30,25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0">Code</Label>
+            <Label Grid.Row="1">Name</Label>
+            <Label Grid.Row="2">Description</Label>
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding ModuleId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="1" Grid.Row="1" Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            <TextBox Grid.Column="1" Grid.Row="2" Text="{Binding Description,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+        </Grid>
+        <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Margin="30,0,10,0" Command="{Binding ModuleSaveCommand, Source={StaticResource ModulVM}}" CommandParameter="{Binding Mode=OneWay}">Save</Button>
+            <Button Command="{Binding ModuleClearCommand, Source={StaticResource ModulVM}}" CommandParameter="{Binding Mode=OneWay}">Clear</Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>

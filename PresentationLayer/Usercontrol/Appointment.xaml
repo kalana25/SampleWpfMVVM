@@ -1,0 +1,99 @@
+﻿<UserControl x:Class="PresentationLayer.Usercontrol.Appointment"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PresentationLayer.Usercontrol"
+             mc:Ignorable="d"
+             xmlns:VeiwMod="clr-namespace:PresentationLayer.ViewModel"
+             xmlns:Mod="clr-namespace:DataModel;assembly=DataModel"
+             xmlns:xctk="clr-namespace:Xceed;assembly=Xceed.Wpf.Toolkit"
+             xmlns:toolkit="http://schemas.xceed.com/wpf/xaml/toolkit" Height="548.139" Width="640" >
+    <UserControl.Resources>
+        <VeiwMod:AppointmentViewModel x:Key="ApontmentVM"/>
+        <Mod:Appointment x:Key="appintmnt"/>
+    </UserControl.Resources>
+    <StackPanel Background="White" DataContext="{Binding NextAppointment, Source={StaticResource ApontmentVM}}">
+        <Label  Padding="0,10" HorizontalContentAlignment="Center" FontSize="25" FontWeight="DemiBold" Background="CadetBlue" Foreground="White" Margin="0">Appointment</Label>
+        <Grid Margin="30,25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="30,10,0,3">
+                <Label Background="Transparent" Foreground="Black" Margin="0">Basic Info</Label>
+                <Separator></Separator>
+            </StackPanel>
+            <Label Grid.Row="1">Appointment ID</Label>
+            <Label Grid.Row="2">Count</Label>
+            <Label Grid.Row="3">Date</Label>
+            <Grid Grid.Row="4" Grid.ColumnSpan="2" Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0">Doctor</Label>
+                <ComboBox Grid.Column="1" ItemsSource="{Binding Doctors, Source={StaticResource ApontmentVM},Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="FirstName" SelectedValuePath="Id" SelectedValue="{Binding DoctorId}"/>
+                <Label Grid.Column="2">Patient</Label>
+                <ComboBox Grid.Column="3" ItemsSource="{Binding Patients, Source={StaticResource ApontmentVM}, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" DisplayMemberPath="FirstName" SelectedValuePath="Id" SelectedValue="{Binding PatientId}"/>
+            </Grid>
+            <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="30,10,0,10" Height="110">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Border Background="Thistle" SnapsToDevicePixels="True" Margin="0,0,15,0" CornerRadius="2">
+                    <StackPanel>
+                        <TextBlock>Name</TextBlock>
+                        <TextBlock>Speciality</TextBlock>
+                        <TextBlock>Register No</TextBlock>
+                        <TextBlock>Phone</TextBlock>
+                        <TextBlock>Email</TextBlock>
+                    </StackPanel>
+                </Border>
+                <Border Background="Silver" Grid.Column="1" SnapsToDevicePixels="True" Margin="15,0,0,0" CornerRadius="2">
+                    <StackPanel>
+                        <TextBlock>Name</TextBlock>
+                        <TextBlock>Address</TextBlock>
+                        <TextBlock>Phone</TextBlock>
+                    </StackPanel>
+                </Border>
+            </Grid>
+            <StackPanel Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Margin="30,10,0,3">
+                <Label  Background="Transparent" Foreground="Black" Margin="0">Shedule Time Slot</Label>
+                <Separator></Separator>
+            </StackPanel>
+            <Grid Grid.Row="7" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0">Start</Label>
+                <toolkit:TimePicker Grid.Column="1" Value="{Binding StartTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                <Label Grid.Column="2">End</Label>
+                <toolkit:TimePicker Grid.Column="3" Value="{Binding EndTime, Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding AppointmentId, Source={StaticResource appintmnt}}" VerticalAlignment="Center" FontSize="14" Foreground="DarkRed" FontWeight="DemiBold"/>
+            <TextBlock Grid.Column="1" Grid.Row="2" Text="{Binding DayCount, Source={StaticResource appintmnt}}" VerticalAlignment="Center" FontSize="14" Foreground="DarkRed" FontWeight="DemiBold"/>
+            <DatePicker Grid.Column="1" Grid.Row="3" SelectedDateFormat="Short" Text="{Binding Date, Source={StaticResource appintmnt} ,Mode=TwoWay}" />
+        </Grid>
+        <StackPanel Orientation="Horizontal" FlowDirection="RightToLeft">
+            <Button Margin="30,0,10,0" Command="{Binding AppointmentSaveCommand, Source={StaticResource ApontmentVM}}" CommandParameter="{Binding Mode=OneWay}">Save</Button>
+            <Button>Clear</Button>
+        </StackPanel>
+    </StackPanel>
+</UserControl>
